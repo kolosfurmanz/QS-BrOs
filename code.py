@@ -1,0 +1,1 @@
+print("QS BrOs for life")
