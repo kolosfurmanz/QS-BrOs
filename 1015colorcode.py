@@ -1,8 +1,12 @@
 from matplotlib import pyplot as plt, colors
 import numpy as np
 import pandas as pd
-data = np.loadtxt('1015-color-data.csv', dtype = 'float', delimiter = ',', skiprows = 1)
-scale = np.loadtxt('1015-zr-data.csv', dtype = 'float', delimiter = ',', skiprows = 1)
+data = pd.read_csv('data.csv', delimiter = ',', usecols = (3, 4), skiprows = np.arange(22, 264))
+scale = pd.read_csv('data.csv', delimiter = ',', usecols = (0, 1), skiprows = np.arange(22, 264))
+data = data.fillna(value = 0)
+scale = scale.fillna(value = 0)
+data = data[:].values
+scale = scale[:].values
 r_i = []
 i_z = []
 z = []
@@ -11,6 +15,9 @@ for i in data:
     i_z.append(i[1])
 for j in scale:
     z.append(j[0])
+z.pop(-1)
+r_i.pop(-1)
+i_z.pop(-1)
 plt.rcParams["figure.figsize"] = [7.00, 3.50]
 plt.rcParams["figure.autolayout"] = True
 x = r_i
@@ -18,9 +25,10 @@ y = i_z
 c = z
 df = pd.DataFrame({"x": x, "y": y, "c": c})
 fig, ax = plt.subplots()
-cmap = plt.cm.hot
+cmap = plt.cm.RdBu
 norm = colors.Normalize(vmin = np.min(z), vmax = np.max(z))
 ax.scatter(df.x, df.y, color=cmap(norm(df.c.values)))
+ax.set_facecolor('grey')
 sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
 cbar = fig.colorbar(sm)
 cbar.set_label("Redshift (z)")
@@ -28,3 +36,5 @@ plt.xlabel('r-i')
 plt.ylabel('i-z')
 plt.title('r-i v.s. i-z Color Filters for Plate 1015 (nQSOs = 21)')
 plt.savefig('1015_color-color_graph.png')
+print(x)
+print(z)
