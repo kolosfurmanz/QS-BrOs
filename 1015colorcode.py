@@ -25,7 +25,7 @@ y = i_z
 c = z
 df = pd.DataFrame({"x": x, "y": y, "c": c})
 fig, ax = plt.subplots()
-cmap = plt.cm.RdBu
+cmap = plt.cm.RdBu_r
 norm = colors.Normalize(vmin = np.min(z), vmax = np.max(z))
 ax.scatter(df.x, df.y, color=cmap(norm(df.c.values)))
 ax.set_facecolor('grey')
