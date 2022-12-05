@@ -17,5 +17,5 @@ def d(z):
 plt.scatter(z, d(z))
 plt.xlabel("Redshift (z)")
 plt.ylabel("Distance (Mpc)")
-plt.title("Redshift v.s. Distance for Plate 1015 (nQSOs = 21)")
+plt.title("Distance v.s. Redshift for Plate 1015 (nQSOs = 21)")
 plt.savefig('1015_rd_graph.png')
