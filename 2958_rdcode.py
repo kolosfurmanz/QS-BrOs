@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt 
-data = np.loadtxt('2958-zr-data.csv', dtype = 'float', delimiter = ',', skiprows = 1)
+import pandas as pd
+data = pd.read_csv('data.csv', delimiter = ',', usecols = (10,11))
+data = data[:].values
 z = []
 for i in data:
     z.append(i[0])
