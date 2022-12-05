@@ -1,9 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt 
-data = np.loadtxt('2137-zr-data.csv', dtype = 'float', delimiter = ',', skiprows = 1)
+import pandas as pd
+data = pd.read_csv('data.csv', delimiter = ',', usecols = (5,6), skiprows = np.arange(52, 264))
+data = data.fillna(value = 0)
+data = data[:].values
 z = []
 for i in data:
     z.append(i[0])
+z.pop(-1)
 z = np.sort(z)
 H_0 = (69.8 + 74) / 2
 c = 299792.458
