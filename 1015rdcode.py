@@ -7,6 +7,7 @@ data = data[:].values
 z = []
 for i in data:
     z.append(i[0])
+z.pop(-1)
 z = np.sort(z)
 
 H_0 = (69.8 + 74) / 2
