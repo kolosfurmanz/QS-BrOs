@@ -1,15 +1,20 @@
-import numpy as np 
+import numpy as np
 import matplotlib.pyplot as plt
-data = np.loadtxt('2958-zr-data.csv', dtype = 'float', delimiter = ',', skiprows = 1)
+import pandas as pd
+data = pd.read_csv('data.csv', delimiter = ',', usecols = (10, 14))
+sort = data.sort_values(by = '2958 z')
+sort = sort.fillna(value = 0)
+sort = sort[:].values
 z = []
 r = []
 
-for i in data:
+for i in sort:
     z.append(i[0])
     r.append(i[1])
-z = np.sort(z)
-r = np.sort(r)
-
+z.pop(-1)
+r.pop(-1)
+z = np.array(z)
+r = np.array(r)
 
 n = np.size(z)
 mean_z = np.mean(z)
@@ -27,10 +32,13 @@ SSt = np.sum((r - mean_r)**2)
 R2 = 1 - (square_error / SSt)
 plt.scatter(z, r)
 plt.plot(z, line)
-plt.title("Redshift v.s. Red Color Filter for Plate 2958 (nQSO = 264)")
+plt.title("i-z Color Filter v.s. Redshift for Plate 2958 (nQSOs = 264)")
 plt.xlabel("Redshift (z)")
-plt.ylabel("Red color filter (r)")
-plt.savefig('2958_zr_graph.png')
-print("the r^2 score is:", R2)
+plt.ylabel("i-z Color Filter")
+plt.savefig('2958_izz_graph.png')
+print("the r^2 score is", R2)
 mean_z = np.sum(z)/len(z)
 print("the average redshift value is", mean_z)
+print("the slope is", m)
+print("the i-z intercept is", b)
+print(z)
