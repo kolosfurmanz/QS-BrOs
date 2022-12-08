@@ -1,8 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-data = pd.read_csv('data.csv', delimiter = ',', usecols = (0,4), skiprows = np.arange(22, 264))
-extinction = pd.read_csv('data.csv', delimiter = ',', usecols = (2,3), skiprows = np.arange(22, 264))
+data = pd.read_csv('data.csv', delimiter = ',', usecols = (0,1), skiprows = np.arange(22, 264))
+extinction = pd.read_csv('data.csv', delimiter = ',', usecols = (0,2), skiprows = np.arange(22, 264))
+data = data.sort_values(by = '1015 z')
+extinction = extinction.sort_values(by = '1015 z')
 data = data.fillna(value = 0)
 extinction = extinction.fillna(value = 0)
 data = data[:].values
@@ -15,7 +17,7 @@ for i in data:
     z.append(i[0])
     r.append(i[1])
 for j in extinction: 
-    A_v.append(j[0])
+    A_v.append(j[1])
 z.pop(-1)
 r.pop(-1)
 A_v.pop(-1)
